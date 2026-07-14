@@ -5,7 +5,12 @@ import { useCart } from '../context/CartContext';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { cartCount } = useCart();
+  
+  // On récupère le tableau 'cart' au lieu de 'cartCount' qui n'est pas défini dans ton context
+  const { cart } = useCart();
+  
+  // On calcule dynamiquement le nombre d'articles présents dans le panier
+  const cartCount = cart ? cart.reduce((total, item) => total + (item.quantity || 1), 0) : 0;
 
   return (
     <nav className="w-full bg-[#FAF9F6]/80 backdrop-blur-md border-b border-[#1A1A1A]/5 fixed top-0 left-0 z-50 px-6 sm:px-16 py-5 flex justify-between items-center text-[#1A1A1A]">
